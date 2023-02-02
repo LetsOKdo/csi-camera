@@ -7,6 +7,7 @@
 # Data files are in /usr/sharc/OpenCV
 
 import cv2
+import sys
 
 # gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
 # Defaults to 1920x1080 @ 30fps
@@ -22,7 +23,7 @@ def gstreamer_pipeline(
     flip_method=0,
 ):
     return (
-        "nvarguscamerasrc ! "
+        "nvarguscamerasrc sensor-id=%d ! "
         "video/x-raw(memory:NVMM), "
         "width=(int)%d, height=(int)%d ! "
         "nvvidconv flip-method=%d ! "
@@ -30,9 +31,10 @@ def gstreamer_pipeline(
         "videoconvert ! "
         "video/x-raw, format=(string)BGR ! appsink drop=True"
         % (
+            int(sys.argv[1]), # Sensor-id (Camera 0 or 1) from commandline arg
             capture_width,
             capture_height,
-            flip_method,
+            int(sys.argv[2]),  # Flip method (0 to 7)
             display_width,
             display_height,
         )
