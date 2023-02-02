@@ -1,5 +1,5 @@
 # CSI-Camera
-Simple example of using a MIPI-CSI(2) Camera (like the Raspberry Pi Version 2 camera) with the NVIDIA Jetson Developer Kits with CSI camera ports. This includes the recent Jetson Nano and Jetson Xavier NX.  This is support code for the article on JetsonHacks: https://wp.me/p7ZgI9-19v
+Simple example of using a MIPI-CSI(2) Camera (like the Raspberry Pi Version 2 camera) with the NVIDIA Jetson Developer Kits with CSI camera ports. This includes the recent Jetson Nano, Jetson Xavier NX and OKdo Nano C100.  This is support code for the article on JetsonHacks: https://wp.me/p7ZgI9-19v
 
 For the Nanos and Xavier NX, the camera should be installed in the MIPI-CSI Camera Connector on the carrier board. The pins on the camera ribbon should face the Jetson module, the tape stripe faces outward.
 
@@ -13,7 +13,7 @@ To test the camera:
 
 ```
 # Simple Test
-#  Ctrl^C to exit
+#  Ctrl+C to exit
 # sensor_id selects the camera: 0 or 1 on Jetson Nano B01
 $ gst-launch-1.0 nvarguscamerasrc sensor_id=0 ! nvoverlaysink
 
@@ -44,9 +44,9 @@ $ python simple_camera.py
 ```
 ### face_detect.py
 
-face_detect.py is a python script which reads from the camera and uses  Haar Cascades to detect faces and eyes:
+face_detect.py is a python script which reads from the camera and uses Haar Cascades to detect faces and eyes. Specify sendor_id and flip_method as parameters:
 ```
-$ python face_detect.py
+$ python face_detect.py 1 2
 ```
 Haar Cascades is a machine learning based approach where a cascade function is trained from a lot of positive and negative images. The function is then used to detect objects in other images. 
 
